@@ -1,0 +1,121 @@
+[account]
+# Your payout wallet. Must start with 0x. Leave empty — the miner asks on first run.
+address =
+# Name shown on the dashboard and woodyminer. Leave empty for an auto-generated name.
+worker =
+
+[server]
+base_url = http://xenblocks.io
+connection_timeout_s = 12
+network_poll_interval_s = 6
+network_poll_timeout_s = 8
+network_down_poll_interval_s = 8
+lastblock_url = http://xenblocks.io:4445/getblocks/lastblock
+lastblock_url_fallback = http://xenblocks.io:4447/getblocks/lastblock
+lastblock_poll_interval_s = 2
+lastblock_timeout_s = 8
+
+[mining]
+strategy = random
+memory_cost = 10000
+time_cost = 1
+parallelism = 1
+hash_len = 64
+# 0 = follow the network difficulty (min m=10000). Do not force a lower m —
+# such blocks queue forever and never reach the chain.
+force_mine_memory_cost = 0
+match_drain_enabled = true
+match_drain_min_queue = 1
+match_drain_max_s = 0
+# 0 = pick from CPU core count (will not oversubscribe). Or set 8–64 yourself.
+match_drain_parallel = 0
+match_drain_batch = 0
+xuni_mining_enabled = false
+xuni_queue_soft_cap = 100
+xuni_queue_resume = 40
+xuni_every_n_batches = 3
+xuni_max_lanes = 2
+
+[efficiency]
+# Use 79% of this GPU's VRAM. The rest stays free for the desktop / driver.
+target_vram_pct = 79.0
+desktop_headroom_pct = 16.0
+emergency_vram_pct = 93.0
+min_headroom_pct = 4.0
+runtime_overhead_pct = 5.0
+min_headroom_floor_mib = 512
+runtime_overhead_floor_mib = 256
+target_vram_mib = 0
+headroom_mib = 0
+emergency_vram_mib = 0
+min_headroom_mib = 0
+max_gpu_temp_c = 85
+warn_gpu_temp_c = 80
+max_mem_temp_c = 83
+warn_mem_temp_c = 80
+thermal_use_memory_junction = true
+gpu_cooldown_s = 20
+gpu_power_boost_enabled = true
+gpu_power_target_pct = 90
+gpu_power_min_pct = 70
+gpu_difficulty_power_enabled = true
+gpu_difficulty_power_full_ratio = 2.0
+gpu_thermal_batch_enabled = true
+gpu_thermal_start_scale = 1.0
+thermal_batch_step = 1
+thermal_settle_s = 5
+gpu_thermal_batch_min_scale = 0.30
+gpu_windows_performance_mode = false
+sample_interval_s = 5
+
+[queue]
+db_path = data/blocks.db
+jsonl_path = data/queue.jsonl
+rejected_jsonl_path = data/rejected.jsonl
+submit_cpu_fraction = 0.30
+bag_forward_url =
+bag_forward_token =
+bag_forward_batch = 32
+
+[monitoring]
+# Report live stats (hashrate heartbeat + accepted blocks) to the public
+# XenBlocks explorer at https://xenblocks.online — shows your workers on
+# their dashboard. The API key below is the shared public key for x1miner
+# builds; it only allows reporting (rate-limited per IP, deduplicated).
+# Set enabled = false if you prefer not to report.
+xenblockscan_enabled = true
+xenblockscan_endpoint = https://xenblocks.online/api/v1
+xenblockscan_api_key = 01331bfc053683f42bf7525b4f7f5b5906889bd10d57bb185681dc885ed26cdd
+xenblockscan_holdings_interval_s = 120
+xenblockscan_report_rejects = false
+xenblockscan_backfill = false
+log_path = data/session.log
+timelapse_path = data/session_timelapse.jsonl
+stats_interval_s = 4
+timelapse_sample_s = 30
+dashboard_enabled = true
+woodyminer_enabled = true
+woodyminer_upload_url = https://woodyminer.com/api/stat/upload
+woodyminer_upload_period_s = 60
+woodyminer_custom_name =
+tracker_id =
+
+[update]
+enabled = false
+github_repo =
+github_ref = main
+check_interval_s = 300
+token =
+sha_path = data/build_sha
+
+[cuda]
+# 0 = auto from CPU cores (never more threads than cores, leaves 1–2 for the OS).
+keygen_threads = 0
+device_id = 0
+batch_size = 0
+max_batch_size = 0
+# Multi-lane harvest at m=100. Planner splits the 79% VRAM cap across these lanes.
+max_lanes = 8
+lane_reserve = 1
+runtime_overhead_mib = 0
+work_patches = 2

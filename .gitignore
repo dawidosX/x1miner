@@ -1,0 +1,20 @@
+# build artifacts
+build/
+*.o
+*.so
+
+# runtime data & logs
+data/
+logs/
+*.log
+
+# local configs (only miner.ini.example belongs in the repo)
+miner.ini
+miner.ini.prod
+miner.ini.vast
+gpu*/
+
+# editor/OS noise
+.vscode/
+.idea/
+.DS_Store

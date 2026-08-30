@@ -1,0 +1,15 @@
+[Unit]
+Description=XNMiner CUDA (XenBlocks, Linux)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/xnminer-linux-cuda
+ExecStart=/opt/xnminer-linux-cuda/start-miner.sh --no-dashboard
+Restart=on-failure
+RestartSec=10
+# First-run wallet prompt needs a TTY. Set miner.ini address= before enabling this unit.
+
+[Install]
+WantedBy=multi-user.target
